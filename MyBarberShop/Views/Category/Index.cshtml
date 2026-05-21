@@ -1,0 +1,43 @@
+﻿@model List<CategoryVM>
+
+    <div class="row-justify-content-between mt-4">
+        <div class="col-4">
+            <h4>Categorias</h4>
+        </div>
+        <div class="col-4 text-end">
+            <a href="/Category/AddEdit" class="btn btn-success">Nuevo Estilo</a>
+        </div>
+    </div>
+    <hr />
+        
+    <table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th style="width:120px">Accion</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in Model)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td style ="width:120px">
+                    <a href="/Category/AddEdit/@item.CategoryId" class="btn btn-sm btn-primary"> Editar</a>
+                    <button class="btn btn-sm btn-danger" onclick="DeleteItem(@item.CategoryId)">Eliminar</button>
+                </td>
+            </tr>
+        }
+
+    </tbody>
+</table>
+
+<script>
+    function DeleteItem(id){
+        if(confirm("Estas Seguro Eliminar ?")){
+            window.location.href = '@Url.Action("Delete", "Category")' + "?id=" + id;
+
+        }
+    }
+
+</script>
