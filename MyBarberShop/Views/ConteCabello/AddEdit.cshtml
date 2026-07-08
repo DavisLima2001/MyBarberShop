@@ -1,0 +1,85 @@
+﻿@model CorteCabelloVM;
+
+@{
+    var title = Model.CorteCabelloId == 0 ? "Nuevo Corte de Cabello" : "Editar Corte de Cabello";
+    var btnAction = Model.CorteCabelloId == 0 ? "Agregar" : "Guardar Cambios";
+
+}
+
+
+<div class="row">
+    <h2>@title</h2>
+    <hr />
+    <div class="col-6">
+
+        <form action="/ConteCabello/AddEdit" method="post" enctype="multipart/form-data">
+            <input type="hidden" asp-for="CorteCabelloId" />
+
+            <div class="mb-3">
+                <label class="form-label">Categoria</label>
+                <select class="form-select"asp-for="Category.CategoryId" asp-items="@Model.Categories">
+                    <option selected disabled>--Seleccionar--</option>
+                   
+                </select>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Nombre</label>
+                <input type="text" class="form-control" asp-for="Name" autocomplete="off">
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Descripcion</label>
+                <textarea id="summernote" class="form-control" asp-for="Description" autocomplete="off"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Precio</label>
+                <input type="number" class="form-control" asp-for="Price" autocomplete="off">
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Cargar Imagen</label>
+                <input type="file" class="form-control" asp-for="ImageFile">
+               
+            </div>
+            
+
+
+            @if (ViewBag.message != null)
+            {
+                <div class="alert alert-success" role="alert">
+                    @ViewBag.message
+                </div>
+            }
+            <div class="d-grid gap-2 d-md-block mt-4">
+                <button class="btn btn-primary" type="submit">@btnAction</button>
+                <a href="/ConteCabello/Index" class="btn btn-warning">Volver</a>
+            </div>
+        </form>
+
+    </div>
+
+    <div class="col-6">
+        <img src="~/images/@Model.ImageName" class="rounded" width="300" height="320" alt="@Model.Name" />
+    </div>
+
+</div>
+
+
+@section Styles{
+    <link href="~/lib/summernote/dist/summernote.min.css" rel="stylesheet" />
+    <link href="~/lib/summernote/dist/summernote-bs5.min.css" rel="stylesheet" />
+}
+
+@section Scripts {
+    <script src="~/lib/summernote/dist/summernote.min.js"></script>
+    <script src="~/lib/summernote/dist/summernote-bs5.min.js"></script>
+
+    <script>
+          $(document).ready(function() {
+          $('#summernote').summernote();
+          });
+    </script>
+}

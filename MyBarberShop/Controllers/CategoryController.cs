@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MyBarberShop.Models;
 using MyBarberShop.Services;
 
 namespace MyBarberShop.Controllers
 {
+    [Authorize(Roles ="Administrador")]
     public class CategoryController(CategoryService _categoryService) : Controller
     {
         public async Task<IActionResult> Index()

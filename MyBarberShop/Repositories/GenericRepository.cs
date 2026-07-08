@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MyBarberShop.Context;
+using System.Linq.Expressions;
 
 namespace MyBarberShop.Repositories
 {
@@ -9,6 +10,24 @@ namespace MyBarberShop.Repositories
         {
              return await _dbContext.Set<TEntity>().ToListAsync();
         }
+
+        public async Task<IEnumerable<TEntity>> GetAllAsync(
+            Expression<Func<TEntity,bool>>[]? conditions = null,
+            Expression<Func<TEntity,object>>[]? includes = null
+            )
+        {
+            IQueryable<TEntity> query = _dbContext.Set<TEntity>();
+
+            if (conditions is not null)
+                foreach (var condition in conditions) query = query.Where(condition);
+
+            if (includes is not null)
+                foreach (var include in includes) query = query.Include(include);
+
+
+            return await query.ToListAsync();
+        }
+
 
         public async Task AddAsync(TEntity entity) 
         { 
@@ -35,6 +54,22 @@ namespace MyBarberShop.Repositories
             await _dbContext.SaveChangesAsync();
 
         }
+
+        public async Task<TEntity?> GetByFilter(
+        Expression<Func<TEntity, bool>>[] conditions
+    )
+        {
+            IQueryable<TEntity> query = _dbContext.Set<TEntity>();
+
+            if (conditions is not null)
+                foreach (var condition in conditions) query = query.Where(condition);          
+
+            return await query.FirstOrDefaultAsync();
+        }
+
+
+
+
 
     }
 }

@@ -1,0 +1,34 @@
+﻿
+@model CorteCabelloVM
+
+<section class="py-5 bg-body-tertiary">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="row g-4 g-lg-5 align-items-center">
+
+            <div class="col-md-6">
+                <img class="card-img-top rounded mb-5" src="~/images/@Model.ImageName" alt="@Model.Name" loading="lazy"/>
+            </div>
+
+            <div class="col-md-6">
+                <h1 class="display-5 fw-bold mb-3">@Model.Name</h1>
+                <div class="fs-5 mb-4">
+                    <span class="text-primary fw-semibold ms-2">
+                        @Model.Price.ToString("Q.")
+                    </span>
+                </div>
+
+                @Html.Raw(Model.Description)
+                <form>
+                    <div class="d-flex align-items-center gap-3">
+                        <input hidden name="CorteCabelloId" asp-for="@Model.CorteCabelloId" />
+                    </div>
+
+                    <a class="btn btn-warning flex-md-shrink-0 px-4" href="/Home/Index">Volver</a>
+                </form>
+
+            </div>
+             
+
+        </div>
+    </div>
+</section>

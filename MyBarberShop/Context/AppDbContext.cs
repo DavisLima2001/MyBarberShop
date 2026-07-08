@@ -15,6 +15,8 @@ namespace MyBarberShop.Context
         public DbSet<Category> Category { get; set; }
         public DbSet<CorteCabello> CorteCabello { get; set; }
 
+        public DbSet<User> User { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -39,6 +41,14 @@ namespace MyBarberShop.Context
 
                  
             });
+
+            modelBuilder.Entity<User>(e =>
+            {
+                e.HasKey("UserId");
+                e.Property("UserId").ValueGeneratedOnAdd();
+
+            });
+
         }
     }
 }

@@ -5,6 +5,7 @@ using MyBarberShop.Repositories;
 
 namespace MyBarberShop.Services
 {
+
     public class CategoryService(GenericRepository<Category> _categoryRepository)
     {
         public async Task<IEnumerable<CategoryVM>> GetAllAsync()

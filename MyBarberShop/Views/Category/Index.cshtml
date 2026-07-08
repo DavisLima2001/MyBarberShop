@@ -32,12 +32,43 @@
     </tbody>
 </table>
 
-<script>
-    function DeleteItem(id){
-        if(confirm("Estas Seguro Eliminar ?")){
-            window.location.href = '@Url.Action("Delete", "Category")' + "?id=" + id;
+@section Scripts {
+    <script>
+
+                function DeleteItem(id){
+
+            Swal.fire({
+                title: "Estas Seguro?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Si, Eliminar esto!",
+                cancelButtonText: "No, Volver!"
+            }).then((result) => {
+
+                if (result.isConfirmed) {
+
+                    Swal.fire({
+                        title: "Eliminado!",
+                        text: "Se Elimino con Exito.",
+                        icon: "success"
+                    }).then(() => {
+
+                        window.location.href = '@Url.Action("Delete", "Category")' + "?id=" + id;
+
+                    });
+
+                }
+
+            });
 
         }
-    }
 
-</script>
+
+        
+
+    </script>
+
+}
+
